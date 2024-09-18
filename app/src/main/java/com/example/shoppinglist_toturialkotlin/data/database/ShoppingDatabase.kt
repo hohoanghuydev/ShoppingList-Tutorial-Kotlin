@@ -9,7 +9,8 @@ import com.example.shoppinglist_toturialkotlin.data.database.entities.ShoppingIt
 
 @Database(
     entities = [ShoppingItem::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class ShoppingDatabase : RoomDatabase() {
     abstract fun getShoppingItemDao() : ShoppingItemDao
@@ -19,7 +20,7 @@ abstract class ShoppingDatabase : RoomDatabase() {
         private var instance: ShoppingDatabase? = null
         private val LOCK = Any()
 
-        private operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
             instance ?: createDatabase(context).also { instance = it }
         }
 
