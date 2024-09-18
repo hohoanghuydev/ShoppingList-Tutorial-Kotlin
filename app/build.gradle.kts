@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -45,4 +46,25 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Room and Architectural Components
+    implementation ("androidx.room:room-runtime:2.2.1")
+    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.1.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0")
+    implementation ("androidx.room:room-ktx:2.2.1")
+    kapt ("androidx.room:room-compiler:2.2.1")
+
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0")
+
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.0.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0")
+    kapt ("androidx.lifecycle:lifecycle-compiler:2.0.0")
+
+    // Kodein
+    implementation ("org.kodein.di:kodein-di-generic-jvm:6.4.0")
+    implementation ("org.kodein.di:kodein-di-framework-android-x:6.4.0")
 }
