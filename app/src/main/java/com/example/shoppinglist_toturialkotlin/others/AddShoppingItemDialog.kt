@@ -1,4 +1,4 @@
-package com.example.shoppinglist_toturialkotlin.ui
+package com.example.shoppinglist_toturialkotlin.others
 
 import android.content.Context
 import android.os.Bundle

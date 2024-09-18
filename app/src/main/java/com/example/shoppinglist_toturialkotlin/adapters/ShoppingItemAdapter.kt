@@ -1,4 +1,4 @@
-package com.example.shoppinglist_toturialkotlin.ui.adapters
+package com.example.shoppinglist_toturialkotlin.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +44,7 @@ class ShoppingItemAdapter(
         }
 
         btnMinus.setOnClickListener {
-            if (shoppingItem.amount > 0) {
+            if (shoppingItem.amount > 1) {
                 shoppingItem.amount--
                 viewModel.upsert(shoppingItem)
             }

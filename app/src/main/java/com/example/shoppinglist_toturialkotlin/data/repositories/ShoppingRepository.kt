@@ -2,9 +2,10 @@ package com.example.shoppinglist_toturialkotlin.data.repositories
 
 import com.example.shoppinglist_toturialkotlin.data.database.ShoppingDatabase
 import com.example.shoppinglist_toturialkotlin.data.database.entities.ShoppingItem
+import javax.inject.Inject
 
-class ShoppingRepository(
-    private var database: ShoppingDatabase
+class ShoppingRepository @Inject constructor(
+    private val database: ShoppingDatabase
 ) {
     suspend fun upsert(item: ShoppingItem) = database.getShoppingItemDao().upsert(item)
 

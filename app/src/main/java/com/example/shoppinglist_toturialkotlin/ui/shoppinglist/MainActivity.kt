@@ -12,15 +12,23 @@ import com.example.shoppinglist_toturialkotlin.R
 import com.example.shoppinglist_toturialkotlin.data.database.ShoppingDatabase
 import com.example.shoppinglist_toturialkotlin.data.database.entities.ShoppingItem
 import com.example.shoppinglist_toturialkotlin.data.repositories.ShoppingRepository
-import com.example.shoppinglist_toturialkotlin.ui.AddShoppingItemDialog
-import com.example.shoppinglist_toturialkotlin.ui.ItemShoppingListener
-import com.example.shoppinglist_toturialkotlin.ui.adapters.ShoppingItemAdapter
+import com.example.shoppinglist_toturialkotlin.others.AddShoppingItemDialog
+import com.example.shoppinglist_toturialkotlin.others.ItemShoppingListener
+import com.example.shoppinglist_toturialkotlin.adapters.ShoppingItemAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var rvShoppingList: RecyclerView
+
+    @Inject
+    lateinit var database: ShoppingDatabase
+    @Inject
+    lateinit var repository: ShoppingRepository
+    @Inject
+    lateinit var factory: ShoppingViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +39,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val database = ShoppingDatabase(this)
-        val repository = ShoppingRepository(database)
-        val factory = ShoppingViewModelFactory(repository)
 
         val viewModel = ViewModelProvider(this, factory)[ShoppingViewModel::class.java]
 
