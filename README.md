@@ -1,1 +1,1 @@
-"# ShoppingList-Tutorial-Kotlin" 
+# ShoppingList Tutorial Kotlin
