@@ -5,7 +5,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +12,15 @@ import com.example.shoppinglist_toturialkotlin.R
 import com.example.shoppinglist_toturialkotlin.data.database.ShoppingDatabase
 import com.example.shoppinglist_toturialkotlin.data.database.entities.ShoppingItem
 import com.example.shoppinglist_toturialkotlin.data.repositories.ShoppingRepository
+import com.example.shoppinglist_toturialkotlin.ui.AddShoppingItemDialog
+import com.example.shoppinglist_toturialkotlin.ui.ItemShoppingListener
 import com.example.shoppinglist_toturialkotlin.ui.adapters.ShoppingItemAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var rvShoppingList: RecyclerView
-    private var shoppingItems: List<ShoppingItem> = arrayListOf(
-        ShoppingItem("Cafe", 2),
-        ShoppingItem("Latte", 1)
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +37,25 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProvider(this, factory)[ShoppingViewModel::class.java]
 
-        val adapterShoppingList = ShoppingItemAdapter(shoppingItems, viewModel)
+        val adapterShoppingList = ShoppingItemAdapter(listOf(), viewModel)
 
         rvShoppingList = findViewById(R.id.rvShoppingList)
         rvShoppingList.adapter = adapterShoppingList
         rvShoppingList.layoutManager = LinearLayoutManager(this)
 
-        viewModel.getAll().observe(this, Observer {
-            shoppingItems = it
+        viewModel.getAll().observe(this) {
+            adapterShoppingList.items = it
             adapterShoppingList.notifyDataSetChanged()
-        })
+        }
+
+        findViewById<FloatingActionButton>(R.id.floatingActionButton)?.setOnClickListener {
+            val dialog = AddShoppingItemDialog(this,
+                object: ItemShoppingListener {
+                    override fun onItemData(item: ShoppingItem) {
+                        viewModel.upsert(item)
+                    }
+                })
+            dialog.show()
+        }
     }
 }

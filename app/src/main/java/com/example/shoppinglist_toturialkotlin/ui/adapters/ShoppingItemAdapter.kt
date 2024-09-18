@@ -3,7 +3,6 @@ package com.example.shoppinglist_toturialkotlin.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -13,7 +12,7 @@ import com.example.shoppinglist_toturialkotlin.data.database.entities.ShoppingIt
 import com.example.shoppinglist_toturialkotlin.ui.shoppinglist.ShoppingViewModel
 
 class ShoppingItemAdapter(
-    private val items: List<ShoppingItem>,
+    var items: List<ShoppingItem>,
     private val viewModel: ShoppingViewModel
 ) : Adapter<ShoppingItemAdapter.ItemViewHolder>() {
 

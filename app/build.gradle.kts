@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -66,4 +67,7 @@ dependencies {
     // Kodein
     implementation ("org.kodein.di:kodein-di-generic-jvm:6.4.0")
     implementation ("org.kodein.di:kodein-di-framework-android-x:6.4.0")
+    //Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }
